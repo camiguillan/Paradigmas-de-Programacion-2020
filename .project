@@ -1,6 +1,7 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?><projectDescription>
-	<name>empty-game</name>
-	<comment/>
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>2020-o-tpi-juego-nosoyimpostor</name>
+	<comment></comment>
 	<projects>
 	</projects>
 	<buildSpec>
@@ -31,4 +32,36 @@
 		<nature>org.eclipse.xtext.ui.shared.xtextNature</nature>
 		<nature>org.uqbar.project.wollok.wollokNature</nature>
 	</natures>
+	<linkedResources>
+		<link>
+			<name>assets/ascensor (1).png</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/ascensor%20(1).png</locationURI>
+		</link>
+		<link>
+			<name>assets/aulamagna.png</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/aulamagna.png</locationURI>
+		</link>
+		<link>
+			<name>assets/faq1.png</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/faq1.png</locationURI>
+		</link>
+		<link>
+			<name>assets/juego-pixilart.png</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/juego-pixilart.png</locationURI>
+		</link>
+		<link>
+			<name>assets/pasillos (1).png</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/pasillos%20(1).png</locationURI>
+		</link>
+		<link>
+			<name>assets/pasillos.png</name>
+			<type>1</type>
+			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/pasillos.png</locationURI>
+		</link>
+	</linkedResources>
 </projectDescription>
