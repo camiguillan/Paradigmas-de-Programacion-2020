@@ -36,12 +36,12 @@
 		<link>
 			<name>assets/ascensor (1).png</name>
 			<type>1</type>
-			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/ascensor%20(1).png</locationURI>
+			<location>F:/Users/USER/Pictures/2020/PARADIGMAS/OBJETOS/INTEGRADOR/ascensor (1).png</location>
 		</link>
 		<link>
 			<name>assets/aulamagna.png</name>
 			<type>1</type>
-			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/aulamagna.png</locationURI>
+			<location>F:/Users/USER/Pictures/2020/PARADIGMAS/OBJETOS/INTEGRADOR/pasillos (1).png</location>
 		</link>
 		<link>
 			<name>assets/faq1.png</name>
@@ -54,14 +54,9 @@
 			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/juego-pixilart.png</locationURI>
 		</link>
 		<link>
-			<name>assets/pasillos (1).png</name>
-			<type>1</type>
-			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/pasillos%20(1).png</locationURI>
-		</link>
-		<link>
 			<name>assets/pasillos.png</name>
 			<type>1</type>
-			<locationURI>PARENT-4-PROJECT_LOC/Users/patri/Downloads/pasillos.png</locationURI>
+			<location>F:/Users/USER/Pictures/2020/WOLLOK/workspace/git/2020-o-tpi-juego-nosoyimpostor/assets/ascensor (1).png</location>
 		</link>
 	</linkedResources>
 </projectDescription>

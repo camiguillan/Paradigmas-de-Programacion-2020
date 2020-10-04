@@ -16,7 +16,7 @@ object player{
 }
 
 object elevator{
-	var property position = game.at(2.99, 0)
+	var property position = game.at(3, 0)
 	
 	method image(){
 		return "ascensor (1).png"

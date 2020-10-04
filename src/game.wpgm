@@ -4,8 +4,8 @@ import pepita.*
 program game {
 	game.title("Sobreviviendo")
 	game.height(20.5)
-	game.width(22)
-	game.boardGround("pasillos (1).png")
+	game.width(24)
+	game.boardGround("aulamagna.png")
 	//game.addVisual(player)
 	game.addVisual(elevator)
 	//config.configurarTeclas()
