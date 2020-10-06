@@ -6,7 +6,7 @@ program game {
 	game.height(20.5)
 	game.width(24)
 	game.boardGround("aulamagna.png")
-	//game.addVisual(player)
+	game.addVisual(player)
 	game.addVisual(elevator)
 	//config.configurarTeclas()
 	//config.configurarColisiones()

@@ -1,13 +1,10 @@
 import wollok.game.*
 
 object player{
-	var position
-	method position() {
-		return game.center()
-	}
+	var property position = game.at(0, 0)
 
 	method image() {
-		return "juego-pixilart.png"
+		return "cami-der.png"
 	}
 	
 	method turn(nuevaPosicion){
