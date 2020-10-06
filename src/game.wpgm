@@ -1,43 +1,21 @@
 import wollok.game.*
-import pepita.*
+import players.*
+import movimientos.*
 
 program game {
 	game.title("Sobreviviendo")
 	game.height(20.5)
 	game.width(24)
-	game.boardGround("aulamagna.png")
-	game.addVisual(player)
+	game.boardGround("pasillos (2).png")
 	game.addVisual(elevator)
-	//config.configurarTeclas()
+	game.addVisual(player)
+	game.addVisual(feind)
+	game.showAttributes(player)
+	game.showAttributes(elevator)
+	config.configurarTeclas()
+	activador.perseguirAPlayer()
 	//config.configurarColisiones()
 	//config.configurarMovimientos()
 	
-	//bbbbb
 	game.start()
 }
-
-/*object config {
-
-	method configurarTeclas() {
-		keyboard.left().onPressDo({ 
-				player.turn(player.position().left(1))
-		})
-		keyboard.right().onPressDo({ 
-				player.turn(player.position().right(1))
-		})
-		keyboard.up().onPressDo({ 
-				elevator.move(elevator.position().up(1))
-		})
-		keyboard.down().onPressDo({ 
-				elevator.move(elevator.position().down(1))
-		})
-	}
-
-	method configurarColisiones() {
-		game.onCollideDo(pepita, { algo => algo.teEncontro(pepita)})
-	}
-	
-	method configurarMovimientos(){
-		game.onTick(800, "gravedad", {pepita.gravedad()})
-	}
-}*/
