@@ -13,7 +13,6 @@ object player{
 	method enElevator(){
 		 return self.position().x().between(11,12)
 	}
-	
 	/*
 	method mismoY(){
 		return (position.y()==elevator.position().y())
@@ -48,13 +47,17 @@ object feind{ //enemigo aber auf Deutch
 	
 	method position() = perseguirPlayer.position()
 	
+	method image() {
+		return "pinieiro.png"
+	}
+	
 	method enElElevator(){
 		return (self.position().x().between(10,13))
 	}
 	method encuentro(jugador){
-		game.onTick(800, "perder vida", {jugador.perderVida(5)})
+		game.onTick(800, "perder vida", {if (self.position()==player.position())  jugador.perderVida(5)})
 		game.say(jugador,"me esta matando el coloquio de discreta")
-		game.removeTickEvent("perder vida") //DUDOSO	
+		//game.removeTickEvent("perder vida")  DUDOSO	
 	}
 }
 

@@ -6,7 +6,7 @@ program game {
 	game.title("Sobreviviendo")
 	game.height(20.5)
 	game.width(24)
-	game.boardGround("pasillos (2).png")
+	game.boardGround("pasillos (3).png")
 	game.addVisual(elevator)
 	game.addVisual(player)
 	game.addVisual(feind)
