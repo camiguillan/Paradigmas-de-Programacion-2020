@@ -14,8 +14,7 @@ program game {
 	game.showAttributes(elevator)
 	config.configurarTeclas()
 	activador.perseguirAPlayer()
-	//config.configurarColisiones()
-	//config.configurarMovimientos()
+	config.configurarColisiones()
 	
 	game.start()
 }

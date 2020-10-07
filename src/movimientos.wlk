@@ -19,32 +19,28 @@ object config {
 			}
 		})
 		keyboard.up().onPressDo({ 
-			if(player.enElevator()&& elevator.enElTablero()){
+			if(player.enElevator() && elevator.enElTablero() && not feind.enElElevator()){
 				elevator.move(elevator.position().up(1))
 				player.move(player.position().up(1))	
-			}else if(player.enElevator() && elevator.position().y() == 0){
+			}else if(player.enElevator() && elevator.position().y() == 0  && not feind.enElElevator()){
 				elevator.move(elevator.position().up(1))
 				player.move(player.position().up(1))
 			}
 		})
 		keyboard.down().onPressDo({ 
-			if(player.enElevator()&& elevator.enElTablero()){
+			if(player.enElevator()&& elevator.enElTablero() && not feind.enElElevator()){
 				elevator.move(elevator.position().down(1))
 				player.move(player.position().down(1))	
-			}else if(player.enElevator() && elevator.position().y() == 16){
+			}else if(player.enElevator() && elevator.position().y() == 16 && not feind.enElElevator()){
 				elevator.move(elevator.position().down(1))
 				player.move(player.position().down(1))
 			}
 		})
 	}
 
-	/*method configurarColisiones() {
-		game.onCollideDo(pepita, { algo => algo.teEncontro(pepita)})
+	method configurarColisiones() {
+		game.onCollideDo(player, {enemy => enemy.encuentro(player)})
 	}
-	
-	method configurarMovimientos(){
-		game.onTick(800, "gravedad", {pepita.gravedad()})
-	}*/
 }
 
 object activador{
