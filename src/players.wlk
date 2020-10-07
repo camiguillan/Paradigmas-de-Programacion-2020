@@ -11,14 +11,14 @@ object player{
 		position = nuevaPosicion
 	}
 	method enElevator(){
-		 return self.mismoX() 
+		 return self.position().x().between(11,12)
 	}
-	method mismoX(){
-		return self.position().x().between(11,12)
-	}
-	/*method mismoY(){
+	
+	/*
+	method mismoY(){
 		return (position.y()==elevator.position().y())
-	}*/
+	}
+	*/
 	method enElFloor(){
 		return (position.y()%4 == 0)
 	}
@@ -36,7 +36,6 @@ object elevator{
 	method image(){
 		return "ascensor (1).png"
 	}
-	
 	method move(nuevaPosicion) {
 			position = nuevaPosicion
 	}
@@ -52,7 +51,6 @@ object feind{ //enemigo aber auf Deutch
 	method enElElevator(){
 		return (self.position().x().between(10,13))
 	}
-	
 	method encuentro(jugador){
 		game.onTick(800, "perder vida", {jugador.perderVida(5)})
 		game.say(jugador,"me esta matando el coloquio de discreta")
@@ -71,7 +69,6 @@ object perseguirPlayer {
 			self.movimientoIzq()	
 		}
 	}
-	
 	method movimientoDer(){
 		if (player.enElevator() && self.position().y()!= player.position().y() && self.position().x()==9){
 			self.irIzq()
@@ -80,7 +77,6 @@ object perseguirPlayer {
 		} else if(self.playerDistintoPiso() && self.position().x()<8) {
 			self.irDer()}
 	}
-	
 	method movimientoIzq(){
 		if (player.enElevator() && self.position().y()!= player.position().y() && self.position().x()==14){
 			self.irDer()}
@@ -90,25 +86,20 @@ object perseguirPlayer {
 			self.irIzq()
 		}
 	}
-	
 	method playerALaIzq(){
 		return (self.position().x()<player.position().x())
 	}
-	
 	method playerALaDer(){
 		return (self.position().x()>player.position().x())
 	}
-	
 	method irIzq(){
 			const x = self.position().x()-1
 			position = game.at(x, 0)
 	}
-	
 	method irDer(){
 			const x = self.position().x()+1
 			position = game.at(x, 0)
 	}
-	
 	method playerDistintoPiso(){
 		return (player.position().y() != self.position().y())
 	}
