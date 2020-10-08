@@ -41,6 +41,7 @@ object elevator{
 	method enElTablero(){
 		return(self.position().y().between(1,15))
 	}
+	method encuentro(player){}
 }
 
 object feind{ //enemigo aber auf Deutch    
