@@ -5,27 +5,27 @@ object config {
 
 	method configurarTeclas() {
 		keyboard.left().onPressDo({ 
-			if(player.enElFloor() && (player.enElTablero() || player.position().x() == 22)){
-				player.move(player.position().left(1))	
-				player.nuevaOrientacion(izquierda)
+			if(caro.enElFloor() && (caro.enElTablero() || caro.position().x() == 22)){
+				caro.move(caro.position().left(1))	
+				caro.nuevaOrientacion(izquierda)
 			}
 		})
 		keyboard.right().onPressDo({ 
-			if(player.enElFloor() && (player.enElTablero() || player.position().x() == 0)){
-				player.move(player.position().right(1))	
-				player.nuevaOrientacion(derecha)
+			if(caro.enElFloor() && (caro.enElTablero() || caro.position().x() == 0)){
+				caro.move(caro.position().right(1))	
+				caro.nuevaOrientacion(derecha)
 			}
 		})
 		keyboard.up().onPressDo({ 
-			if(player.enElevator() && not feind.enElElevator()&& (elevator.enElTablero() || elevator.position().y() == 0)){
+			if(caro.enElevator() && not feind.enElElevator()&& (elevator.enElTablero() || elevator.position().y() == 0)){
 				elevator.move(elevator.position().up(1))
-				player.move(player.position().up(1))	
+				caro.move(caro.position().up(1))	
 			}
 		})
 		keyboard.down().onPressDo({ 
-			if(player.enElevator() && not feind.enElElevator() && (elevator.enElTablero() || elevator.position().y() == 16)){
+			if(caro.enElevator() && not feind.enElElevator() && (elevator.enElTablero() || elevator.position().y() == 16)){
 				elevator.move(elevator.position().down(1))
-				player.move(player.position().down(1))	
+				caro.move(caro.position().down(1))	
 			}
 		})
 		keyboard.space().onPressDo({const tirito=new Tirito()   
@@ -35,7 +35,7 @@ object config {
 	}
 
 	method configurarColisiones() {
-		game.onCollideDo(player, {enemy => enemy.encuentro(player)})
+		game.onCollideDo(caro, {enemy => enemy.encuentro(caro)})
 		//game.onCollideDo(tirito, {enemy => enemy.encuentro(player)})
 	}
 }
@@ -62,24 +62,24 @@ object perseguirPlayer {
 		}
 	}
 	method movimientoDer(){ //POLIMORFISMO
-		if (player.enElevator() && self.playerDistintoPiso() && self.position().x() == 9){
+		if (caro.enElevator() && self.playerDistintoPiso() && self.position().x() == 9){
 			self.irIzq()
 		} else if (not self.playerDistintoPiso() || (self.playerDistintoPiso() && self.position().x()<8)){
 			self.irDer()
 		}
 	}
 	method movimientoIzq(){
-		if (player.enElevator() && self.playerDistintoPiso() && self.position().x() == 14){
+		if (caro.enElevator() && self.playerDistintoPiso() && self.position().x() == 14){
 			self.irDer()}
 		 else if (not self.playerDistintoPiso() || (self.playerDistintoPiso() && self.position().x()>15)){
 			self.irIzq()
 		}
 	}
 	method playerALaIzq(){
-		return (self.position().x()<player.position().x())
+		return (self.position().x()<caro.position().x())
 	}
 	method playerALaDer(){
-		return (self.position().x()>player.position().x())
+		return (self.position().x()>caro.position().x())
 	}
 	method irIzq(){
 			position = self.position().left(1)
@@ -88,6 +88,6 @@ object perseguirPlayer {
 			position = self.position().right(1)
 	}
 	method playerDistintoPiso(){
-		return (player.position().y() != self.position().y())
+		return (caro.position().y() != self.position().y())
 	}
 }

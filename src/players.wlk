@@ -97,8 +97,8 @@ object feind{ //enemigo aber auf Deutch
 }
 
 class Tirito{
-	var direccionPlayer=player.direccion()
-	var position= player.position()
+	var direccionPlayer=caro.direccion()
+	var position= caro.position()
 	method image() {
 		return "cami-der.png"
 	}
