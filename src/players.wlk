@@ -1,4 +1,5 @@
 import wollok.game.*
+import movimientos.*
 
 object player{
 	var property position = game.at(11, 0)
@@ -56,55 +57,18 @@ object feind{ //enemigo aber auf Deutch
 		return (self.position().x().between(10,13))
 	}
 	method encuentro(jugador){
-		game.onTick(800, "perder vida", {if (self.position()==player.position())  jugador.perderVida(5)})
+		game.onTick(800, "perder vida", {jugador.perderVida(5)}) 
 		game.say(jugador,"me esta matando el coloquio de discreta")
-		//game.removeTickEvent("perder vida")  DUDOSO	
+		self.evaluador()
+	}
+	
+	method evaluador(){
+		game.onTick(800,"misma pos", {if(self.position() != player.position()) self.sacartick()})
+	}
+	
+	method sacartick(){
+		game.removeTickEvent("perder vida") 
+		game.removeTickEvent("misma pos")
 	}
 }
 
-object perseguirPlayer {
-
-	var property position = game.at(2, 0) 		//puertas en x: 2-6-16-20
-
-	method nuevaPosicion() {
-		if(self.playerALaIzq()){
-			self.movimientoDer()
-		}else if(self.playerALaDer()){
-			self.movimientoIzq()	
-		}
-	}
-	method movimientoDer(){
-		if (player.enElevator() && self.position().y()!= player.position().y() && self.position().x()==9){
-			self.irIzq()
-		} else if  (not self.playerDistintoPiso()){
-			self.irDer()
-		} else if(self.playerDistintoPiso() && self.position().x()<8) {
-			self.irDer()}
-	}
-	method movimientoIzq(){
-		if (player.enElevator() && self.position().y()!= player.position().y() && self.position().x()==14){
-			self.irDer()}
-		 else if (not self.playerDistintoPiso()){
-			self.irIzq()
-		} else if(self.playerDistintoPiso() && self.position().x()>15) {
-			self.irIzq()
-		}
-	}
-	method playerALaIzq(){
-		return (self.position().x()<player.position().x())
-	}
-	method playerALaDer(){
-		return (self.position().x()>player.position().x())
-	}
-	method irIzq(){
-			const x = self.position().x()-1
-			position = game.at(x, 0)
-	}
-	method irDer(){
-			const x = self.position().x()+1
-			position = game.at(x, 0)
-	}
-	method playerDistintoPiso(){
-		return (player.position().y() != self.position().y())
-	}
-}
