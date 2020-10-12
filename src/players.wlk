@@ -1,13 +1,10 @@
 import wollok.game.*
 import movimientos.*
 
-object player{
+class Player{
 	var property position = game.at(11, 0)
-	var property vida = 77
-
-	method image() {
-		return "caro-der.png"
-	}
+	var direccion=izquierda
+	var property vida=77
 	method move(nuevaPosicion){
 		position = nuevaPosicion
 	}
@@ -28,6 +25,33 @@ object player{
 	method perderVida(cantidad){
 		vida = (vida-cantidad).max(0)
 	}
+	method direccion()=direccion
+	
+	method nuevaOrientacion(nuevaOrientacion){
+		direccion=nuevaOrientacion
+	}
+}
+
+object caro inherits Player{
+	
+	method image() {
+		return "caro-der.png"
+	}
+	
+}
+
+object izquierda{
+	method mover(objeto){
+		objeto.move(objeto.position().left(1))
+	}
+	
+}
+
+object derecha{
+	method mover(objeto){
+		objeto.move(objeto.position().right(1))
+	}
+	
 }
 
 object elevator{
@@ -71,4 +95,21 @@ object feind{ //enemigo aber auf Deutch
 		game.removeTickEvent("misma pos")
 	}
 }
+
+class Tirito{
+	var direccionPlayer=player.direccion()
+	var position= player.position()
+	method image() {
+		return "cami-der.png"
+	}
+	method nuevaPosition() = game.onTick(100,"disparo tirito",{direccionPlayer.mover(self)  })
+	method position()=position
+	method move(nuevaPosicion){
+		position=nuevaPosicion
+	}
+	method encuentro(player){}
+	
+}
+
+
 

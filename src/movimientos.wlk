@@ -7,11 +7,13 @@ object config {
 		keyboard.left().onPressDo({ 
 			if(player.enElFloor() && (player.enElTablero() || player.position().x() == 22)){
 				player.move(player.position().left(1))	
+				player.nuevaOrientacion(izquierda)
 			}
 		})
 		keyboard.right().onPressDo({ 
 			if(player.enElFloor() && (player.enElTablero() || player.position().x() == 0)){
 				player.move(player.position().right(1))	
+				player.nuevaOrientacion(derecha)
 			}
 		})
 		keyboard.up().onPressDo({ 
@@ -26,10 +28,15 @@ object config {
 				player.move(player.position().down(1))	
 			}
 		})
+		keyboard.space().onPressDo({const tirito=new Tirito()   
+			game.addVisual(tirito)
+			tirito.nuevaPosition()
+		})
 	}
 
 	method configurarColisiones() {
 		game.onCollideDo(player, {enemy => enemy.encuentro(player)})
+		//game.onCollideDo(tirito, {enemy => enemy.encuentro(player)})
 	}
 }
 
