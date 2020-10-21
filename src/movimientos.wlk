@@ -30,7 +30,7 @@ object config {
             }
         })
         keyboard.space().onPressDo({ 
-            tiros.disparar()
+            tirosPlayer.disparar()
         })
     }
 
@@ -38,9 +38,11 @@ object config {
         game.onCollideDo(caro, {enemy => enemy.encuentro(caro)})
         //game.onCollideDo(tirito, {enemy => enemy.encuentra(tirito)})
     }
-    method colisionDisparo(){
-        //game.onCollideDo(tirito, {enemy => enemy.encuentra(tirito)})
-        enemigos.listaEnemigos().forEach({enemy => game.onCollideDo(enemy, {tiro => tiro.encuentra(enemy,tiro)})})
+    method colisionDisparoPersonaje(tirito){
+        game.onCollideDo(tirito, {enemigo => tirito.encuentra(enemigo,tirito)})
+    }
+    method colisionDisparoEnemigo(tiro){
+        game.onCollideDo(tiro,{jugador=>jugador.recibeDisparo(tiro)})
     }
 }
 object activador{
@@ -50,6 +52,12 @@ object activador{
         }
     method perseguirAPlayer(){
         game.onTick(800, "perseguir player", { perseguirPlayer.algo()})
+    }
+    method disparosEnemigos(){
+    	enemigos.listaEnemigosDisparo().forEach({enemy =>  enemy.disparar()})
+    }
+    method ontick(){
+    	game.onTick(2000, "disparo enemigo", { self.disparosEnemigos()})
     }
 }
 
