@@ -1,4 +1,5 @@
 import wollok.game.*
+import wollok.game.*
 import movimientos.*
 import enemys.*
 import disparos.*
@@ -33,6 +34,10 @@ class Player{
         direccion=nuevaOrientacion
     }
     method encuentra(enemigo,tiro){    }
+    method recibeDisparo(disparo){
+    	 vida = (vida-10).max(0)
+    	 tirosEnemigo.desaparecer(disparo)
+    }
 }
 
 object caro inherits Player{
@@ -71,5 +76,7 @@ object elevator{
     }
     method encuentro(player){}
     method encuentra(enemigo,tiro){    }
+    method recibeDisparo(disparo){
+    }
 
 }
