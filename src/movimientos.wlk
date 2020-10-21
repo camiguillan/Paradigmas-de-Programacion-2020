@@ -38,8 +38,9 @@ object config {
         game.onCollideDo(caro, {enemy => enemy.encuentro(caro)})
         //game.onCollideDo(tirito, {enemy => enemy.encuentra(tirito)})
     }
-    method colisionDisparoPersonaje(tirito){
-        game.onCollideDo(tirito, {enemigo => tirito.encuentra(enemigo,tirito)})
+    method colisionDisparoPersonaje(){
+        enemigos.listaEnemigos().forEach({enemy => game.onCollideDo(enemy, {tiro => tiro.encuentra(enemy,tiro)})})
+        //game.onCollideDo(tirito, {enemigo => tirito.encuentra(enemigo,tirito)})
     }
     method colisionDisparoEnemigo(tiro){
         game.onCollideDo(tiro,{jugador=>jugador.recibeDisparo(tiro)})
@@ -54,7 +55,7 @@ object activador{
         game.onTick(800, "perseguir player", { perseguirPlayer.algo()})
     }
     method disparosEnemigos(){
-    	enemigos.listaEnemigosDisparo().forEach({enemy =>  enemy.disparar()})
+    	enemigos.listaEnemigosDisparo().forEach({enemy => enemy.disparar()})
     }
     method ontick(){
     	game.onTick(2000, "disparo enemigo", { self.disparosEnemigos()})

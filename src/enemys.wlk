@@ -56,6 +56,7 @@ class Feind{ //enemigo aber auf Deutch
     }
 
     method restarImp()
+    method disparar()
 }
 
 class FeindSimple inherits Feind{
@@ -68,9 +69,9 @@ class FeindSimple inherits Feind{
         return "pinieiro.png"
     }
     override method cant() = 5
-    method disparar(){
-    }
+    override method disparar(){}
 }
+
 class FeindDispara inherits Feind{
     var property direccion
     var property impactos = 1
@@ -82,7 +83,7 @@ class FeindDispara inherits Feind{
     override method restarImp(){
         impactos-=1
     }
-    method disparar(){
+    override method disparar(){
         if(self.position().y() == caro.position().y()){
         	tirosEnemigo.disparar(self)
         }
@@ -97,7 +98,7 @@ object enemigos{
 
     method aparecerEnemigos(){
         game.onTick(8000,"nuevo enemigo que dispara",{
-            enemigo=new FeindDispara(position= game.at(2, 4),direccion=derecha)
+            enemigo=new FeindDispara(position= game.at(2, 4), direccion = derecha)
             crearEnemigos.nuevoEnemigo(enemigo,listaEnemigosDisparo)                 // a caro no le gusta esto, cami lo secunda
             listaEnemigos.add(enemigo)                                                 // a caro no le  gusta esto
             if (listaEnemigosDisparo.size() == 1)

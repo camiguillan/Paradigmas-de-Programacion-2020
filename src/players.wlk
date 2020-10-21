@@ -45,21 +45,26 @@ object caro inherits Player{
     method image() {
         return "caro-der.png"
     }
-
 }
 
 object izquierda{
     method mover(objeto){
-        objeto.move(objeto.position().left(1))
+    	if(objeto.position().x()>0 || objeto.position().x()<21){
+        	objeto.move(objeto.position().left(1))
+        }else{
+        	game.removeVisual(objeto)
+        }
     }
-
 }
 
 object derecha{
     method mover(objeto){
-        objeto.move(objeto.position().right(1))
+        if(objeto.position().x()>0 || objeto.position().x()<18){
+        	objeto.move(objeto.position().right(1))
+        }else{
+        	game.removeVisual(objeto)
+        }
     }
-
 }
 
 object elevator{
