@@ -1,6 +1,6 @@
 import wollok.game.*
-import playersC.*
-import movimientosC.*
+import players.*
+import movimientos.*
 
 object izquierda{
 	method mover(objeto){
