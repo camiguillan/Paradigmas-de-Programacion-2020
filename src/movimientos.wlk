@@ -4,7 +4,7 @@ import enemys.*
 import disparos.*
 
 object config {
-    method configurarTeclas() {
+    method configurarTeclas() { //RESPOSABILIDAD DE CONDICIONES DEL TECLADO
         keyboard.left().onPressDo({ 
             if(caro.enElFloor() && (caro.enElTablero()  || caro.position().x() == 22)){
                 caro.move(caro.position().left(1))
@@ -52,7 +52,7 @@ object activador{
         game.start()
         }
     method perseguirAPlayer(){
-        game.onTick(800, "perseguir player", { perseguirPlayer.algo()})
+        game.onTick(800, "perseguir player", { perseguirPlayer.algo()}) //CAMBIAR NOMBRE DE "ALGO"
     }
     method disparosEnemigos(){
     	enemigos.listaEnemigosDisparo().forEach({enemy => enemy.disparar()})

@@ -4,11 +4,12 @@ import movimientos.*
 import enemys.*
 import disparos.*
 
-program game {
+program game{
     game.title("Sobreviviendo")
     game.height(20.5)
     game.width(24)
     game.boardGround("pasillos (3).png")
+    
     game.addVisual(elevator)
     game.addVisual(caro)
     enemigos.aparecerEnemigos()
@@ -16,5 +17,6 @@ program game {
     game.showAttributes(elevator)
     config.configurarTeclas()
     config.configurarColisiones()
+    
     game.start()
 }

@@ -17,13 +17,7 @@ class Tirito{
     }
     method encuentro(player){
     }
-    method encuentra(enemigo,tiro){
-        game.removeVisual(tiro)
-        tirosPlayer.remove(tiro)
-        if(tirosPlayer.listaDeDisparos()==0)
-        	game.removeTickEvent("disparo tirito")
-        enemigo.encuentra(enemigo,tiro)
-    }
+    
     method recibeDisparo(param1){}
 }
 
@@ -31,16 +25,23 @@ class TiroPlayer inherits Tirito{
 	override method image() {
         return "cami-der.png"
     }
-	
+	method encuentra(enemigo,tiro){
+        game.removeVisual(tiro)
+        tirosPlayer.remove(tiro)
+        if(tirosPlayer.listaDeDisparos()==0)
+        	game.removeTickEvent("disparo tirito")
+        enemigo.encuentra(enemigo,tiro)
+    }
 }
 
 class TiroEnemigo inherits Tirito{
 	override method image() {
         return "fran-der.png"
     }
-	
+	method encuentra(enemigo,tiro){}
 }
 
+//NO REPETIR LOGICA TIROSPLAYER & TIROSENEMIGO
 object tirosPlayer{
     var tirito
     const property tiros=[]
@@ -53,7 +54,6 @@ object tirosPlayer{
     }
     method listaDeDisparos()=tiros
     method remove(tiro){tiros.remove(tiro)}
-
 }
 
 object tirosEnemigo{
@@ -72,5 +72,4 @@ object tirosEnemigo{
     	game.removeVisual(disparo)
         tirosEnemigo.remove(disparo)
     }
-	
 }

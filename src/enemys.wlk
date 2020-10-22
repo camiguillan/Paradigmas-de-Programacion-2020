@@ -7,7 +7,7 @@ class Feind{ //enemigo aber auf Deutch
     //var property movimiento
     var property position
     //var property direccion
-    method cant()=0
+    method ataque()=0
     method move(nuevaPosicion){
         position = nuevaPosicion
     }
@@ -16,7 +16,7 @@ class Feind{ //enemigo aber auf Deutch
         return (self.position().x().between(10,13))
     }
     method encuentro(jugador){
-        game.onTick(800, "perder vida", {jugador.perderVida(self.cant())}) 
+        game.onTick(800, "perder vida", {jugador.perderVida(self.ataque())}) 
         game.say(jugador,"me esta matando el coloquio de discreta")
         self.evaluador()
     }
@@ -34,20 +34,18 @@ class Feind{ //enemigo aber auf Deutch
 
     method encuentra(enemigo,tiro){
         if(enemigo.impactos() == 0){
-            game.removeVisual(enemigo)
-            
-            //if (enemigos.listaEnemigos().contains(enemigo)){
+            	game.removeVisual(enemigo)
+
                 if(enemigos.listaEnemigos().size()==1)
                     game.removeTickEvent("perseguir player")
                 enemigos.listaEnemigos().remove(enemigo)
-            //}else{
-                  if(enemigos.listaEnemigosDisparo().contains(enemigo)){
+       
+                if(enemigos.listaEnemigosDisparo().contains(enemigo)){
                   		if(enemigos.listaEnemigosDisparo().size()==1)
                     		game.removeTickEvent("disparo enemigo")
                   	 	enemigos.listaEnemigosDisparo().remove(enemigo)
-                  }
-    
-            //}
+                }
+
         }else{
             enemigo.restarImp()
         }
@@ -68,7 +66,7 @@ class FeindSimple inherits Feind{
     method image() {
         return "pinieiro.png"
     }
-    override method cant() = 5
+    override method ataque() = 5 //cambiar nombre a "cant"
     override method disparar(){}
 }
 
@@ -78,7 +76,7 @@ class FeindDispara inherits Feind{
     method image() {
         return "vanos.png"
     }
-    override method cant() = 10
+    override method ataque() = 10
 
     override method restarImp(){
         impactos-=1
@@ -94,33 +92,37 @@ object enemigos{
     var enemigo
     const property listaEnemigos=[]
     const property listaEnemigosDisparo=[]
-    //const property listaConTodosLosEnemigos=[]
-
+    const puertas = [2,6,16,20]
+    var pos
+	
     method aparecerEnemigos(){
         game.onTick(8000,"nuevo enemigo que dispara",{
-            enemigo=new FeindDispara(position= game.at(2, 4), direccion = derecha)
-            crearEnemigos.nuevoEnemigo(enemigo,listaEnemigosDisparo)                 // a caro no le gusta esto, cami lo secunda
-            listaEnemigos.add(enemigo)                                                 // a caro no le  gusta esto
+        	
+            enemigo=new FeindDispara(position= game.at(self.generarPuerta(), 4), direccion = derecha)
+            self.nuevoEnemigo()                 												// a caro no le gusta esto, cami lo secunda
+            listaEnemigosDisparo.add(enemigo)                                                	// a caro no le  gusta esto
             if (listaEnemigosDisparo.size() == 1)
                 activador.ontick() 
             if (listaEnemigos.size()==1)
                 activador.perseguirAPlayer()
         }) 
         game.onTick(5000,"nuevo enemigo simple",{
-            enemigo=new FeindSimple(position= game.at(6, 0))
-            crearEnemigos.nuevoEnemigo(enemigo,listaEnemigos)
-            //listaEnemigos.add(enemigo)
+        	
+            enemigo=new FeindSimple(position= game.at(self.generarPuerta(), 0))
+            self.nuevoEnemigo()
             if (listaEnemigos.size()==1)
                 activador.perseguirAPlayer()
         })
     }
     method enemigo()= enemigo
-}
-
-object crearEnemigos{                                                                 // a caro no le gusta esto a cami tampoco :(
-
-    method nuevoEnemigo(enemigo,listaEnemigos){
+    
+    method generarPuerta(){
+    	pos = 0.randomUpTo(4)
+        return puertas.get(pos)
+    }
+    
+    method nuevoEnemigo(){
         game.addVisual(enemigo)
-            listaEnemigos.add(enemigo)
+        listaEnemigos.add(enemigo)
     }
 }

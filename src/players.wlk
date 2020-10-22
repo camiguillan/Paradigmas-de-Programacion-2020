@@ -14,11 +14,6 @@ class Player{
     method enElevator(){
          return self.position().x().between(11,12)
     }
-    /*
-    method mismoY(){
-        return (position.y()==elevator.position().y())
-    }
-    */
     method enElFloor(){
         return (position.y()%4 == 0)
     }
@@ -49,7 +44,7 @@ object caro inherits Player{
 
 object izquierda{
     method mover(objeto){
-    	if(objeto.position().x()>0 || objeto.position().x()<21){
+    	if(objeto.position().x()>0 || objeto.position().x()<21){ //game.width
         	objeto.move(objeto.position().left(1))
         }else{
         	game.removeVisual(objeto)
