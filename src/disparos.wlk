@@ -23,7 +23,7 @@ class Tirito{
 
 class TiroPlayer inherits Tirito{
 	override method image() {
-        return "cami-der.png"
+        return "flor.png"
     }
 	method encuentra(enemigo,tiro){
         game.removeVisual(tiro)
