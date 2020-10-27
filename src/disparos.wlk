@@ -1,15 +1,14 @@
-import wollok.game.*
+
 import wollok.game.*
 import players.*
 import movimientos.*
 import enemys.*
+import pantallaInicio.*
 
 class Tirito{
     var property direccion
     var position
-    method image() {
-        return "cami-der.png"
-    }
+    
     method nuevaPosition() = game.onTick(100,"disparo tirito",{direccion.mover(self)})
     method position() = position
     method move(nuevaPosicion){
@@ -22,7 +21,7 @@ class Tirito{
 }
 
 class TiroPlayer inherits Tirito{
-	override method image() {
+	method image() {
         return "flor.png"
     }
 	method encuentra(enemigo,tiro){
@@ -35,7 +34,7 @@ class TiroPlayer inherits Tirito{
 }
 
 class TiroEnemigo inherits Tirito{
-	override method image() {
+	method image() {
         return "fran-der.png"
     }
 	method encuentra(enemigo,tiro){}
@@ -46,7 +45,7 @@ object tirosPlayer{
     var tirito
     const property tiros=[]
     method disparar(){
-        tirito=new TiroPlayer(direccion = caro.direccion(), position=caro.position()) 
+        tirito=new TiroPlayer(direccion = personajeSeleccionado.personaje().direccion(), position=personajeSeleccionado.personaje().position()) 
         	game.addVisual(tirito)
             tirito.nuevaPosition()
             tiros.add(tirito)

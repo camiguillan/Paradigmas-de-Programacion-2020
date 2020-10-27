@@ -11,6 +11,21 @@ class Player{
     method move(nuevaPosicion){
         position = nuevaPosicion
     }
+    
+    method moveIzq(){ //PONER SELF
+    	if(self.enElFloor() && (self.enElTablero()  || self.position().x() == 22)){
+                self.move(self.position().left(1))
+                self.nuevaOrientacion(izquierda)
+            }
+    }
+    
+    method moveDer(){
+    	if(self.enElFloor() && (self.enElTablero() || self.position().x() == 0)){
+                self.move(self.position().right(1))
+                self.nuevaOrientacion(derecha)
+            }
+    }
+    
     method enElevator(){
          return self.position().x().between(11,12)
     }
@@ -42,9 +57,23 @@ object caro inherits Player{
     }
 }
 
+object cami inherits Player{
+
+    method image() {
+        return "cami-der.png"
+    }
+}
+
+object fran inherits Player{
+
+    method image() {
+        return "fran-der.png"
+    }
+}
+
 object izquierda{
     method mover(objeto){
-    	if(objeto.position().x()>0 || objeto.position().x()<21){ //game.width
+    	if(objeto.position().x()>0 || objeto.position().x()< 21){ //game.width
         	objeto.move(objeto.position().left(1))
         }else{
         	game.removeVisual(objeto)

@@ -2,6 +2,7 @@ import wollok.game.*
 import players.*
 import movimientos.*
 import disparos.*
+import pantallaInicio.*
 
 class Feind{ //enemigo aber auf Deutch
     //var property movimiento
@@ -22,7 +23,7 @@ class Feind{ //enemigo aber auf Deutch
     }
 
     method evaluador(){
-        game.onTick(800,"misma pos", {if(self.position() != caro.position()) self.sacartick()})
+        game.onTick(800,"misma pos", {if(self.position() != personajeSeleccionado.personaje().position()) self.sacartick()})
     }
 
     method sacartick(){
@@ -66,7 +67,7 @@ class FeindSimple inherits Feind{
     method image() {
         return "pinieiro.png"
     }
-    override method ataque() = 5 //cambiar nombre a "cant"
+    override method ataque() = 5
     override method disparar(){}
 }
 
@@ -82,7 +83,7 @@ class FeindDispara inherits Feind{
         impactos-=1
     }
     override method disparar(){
-        if(self.position().y() == caro.position().y()){
+        if(self.position().y() == personajeSeleccionado.personaje().position().y()){
         	tirosEnemigo.disparar(self)
         }
     }
