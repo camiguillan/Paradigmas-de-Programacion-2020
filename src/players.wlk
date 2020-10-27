@@ -1,8 +1,9 @@
-import wollok.game.*
+
 import wollok.game.*
 import movimientos.*
 import enemys.*
 import disparos.*
+import pantallaInicio.*
 
 class Player{
     var property position = game.at(11, 0)

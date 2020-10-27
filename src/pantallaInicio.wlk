@@ -2,6 +2,7 @@ import wollok.game.*
 import players.*
 import movimientos.*
 import enemys.*
+import disparos.*
 
 object configurarJuego{
 	method empezar(seleccionado){
@@ -27,9 +28,9 @@ object teclas{
 }
 
 object inicio{
-	method position() = game.at(0,0)
+	method position() = game.at(0,2)
 	method image(){
-		return "pasillos (3).png"
+		return "aulamagna.png"
 	}
 }
 
@@ -45,6 +46,7 @@ object seleccionador{
     keyboard.enter().onPressDo({
 	    	game.removeVisual(inicio)
 	    	teclas.cambiarTeclas()
+	    	teclas.activarTeclas()
 	    	configurarJuego.empezar(nombreADefinir.personajeAColor().seleccionado())
 	    	game.removeVisual(caroAElegir)
 	    	game.removeVisual(camiAElegir)
@@ -73,7 +75,7 @@ object camiAElegir{
 		if(nombreADefinir.personajeAColor() == self){
 			return "cami-der.png"
 		}else{
-			return "camienBYN"
+			return "camiBYN.png"
 		}
 	}
 }
@@ -87,7 +89,7 @@ object caroAElegir{
 		if(nombreADefinir.personajeAColor() == self){
 			return "caro-der.png"
 		}else{
-			return "camienBYN"
+			return "caroBYN.png"
 		}
 	}
 }
@@ -101,7 +103,7 @@ object franAElegir{
 		if(nombreADefinir.personajeAColor() == self){
 			return "fran-der.png"
 		}else{
-			return "camienBYN"
+			return "franBYN.png"
 		}
 	}
 }
