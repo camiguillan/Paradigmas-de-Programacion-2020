@@ -45,6 +45,7 @@ object seleccionador{
         })
     keyboard.enter().onPressDo({
 	    	game.removeVisual(inicio)
+	    	personajeSeleccionado.cambiarP(nombreADefinir.personajeAColor().seleccionado()) 
 	    	teclas.cambiarTeclas()
 	    	teclas.activarTeclas()
 	    	configurarJuego.empezar(nombreADefinir.personajeAColor().seleccionado())
@@ -109,5 +110,11 @@ object franAElegir{
 }
 
 object personajeSeleccionado{
-	method personaje() = nombreADefinir.personajeAColor().seleccionado()
+	var personaje
+	method personaje() = personaje
+	
+	method cambiarP(nuevoP){
+		personaje = nuevoP
+	}
+	
 }
