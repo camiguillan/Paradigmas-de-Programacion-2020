@@ -1,4 +1,3 @@
-
 import wollok.game.*
 import players.*
 import movimientos.*
@@ -18,19 +17,8 @@ class Tirito{
     }
     
     method recibeDisparo(param1){}
-}
-
-class TiroPlayer inherits Tirito{
-	method image() {
-        return "fuego.png"
-    }
-	method encuentra(enemigo,tiro){
-        game.removeVisual(tiro)
-        tirosPlayer.remove(tiro)
-        if(tirosPlayer.listaDeDisparos()==0)
-        	game.removeTickEvent("disparo tirito")
-        enemigo.encuentra(enemigo,tiro)
-    }
+    
+    method enPantalla() = self.position().x() > 0 || self.position().y() < game.width()
 }
 
 class TiroEnemigo inherits Tirito{
@@ -40,7 +28,22 @@ class TiroEnemigo inherits Tirito{
 	method encuentra(enemigo,tiro){}
 }
 
-//NO REPETIR LOGICA TIROSPLAYER & TIROSENEMIGO
+class TiroPlayer inherits Tirito{
+	method encuentra(enemigo,tiro){
+        game.removeVisual(tiro)
+        tirosPlayer.remove(tiro)
+        if(tirosPlayer.listaDeDisparos()==0)
+        	game.removeTickEvent("disparo tirito")
+        enemigo.encuentra(enemigo,tiro)
+    }
+    
+    method image(){
+    	return personajeSeleccionado.personaje().disparo()
+    }
+}
+
+///////////////////////////////////////////////////////////////////
+
 object tirosPlayer{
     var tirito
     const property tiros=[]

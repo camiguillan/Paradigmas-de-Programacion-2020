@@ -4,11 +4,18 @@ import movimientos.*
 import disparos.*
 import pantallaInicio.*
 
-class Feind{ //enemigo aber auf Deutch
-    //var property movimiento
+class Feind{ //enemigo aber auf Deutsch
     var property position
-    //var property direccion
+    var direccion = izquierda
+    
+    method direccion() = direccion
+    
+    method nuevaDireccion(nuevaD){
+        direccion=nuevaD
+    }
+       
     method ataque()=0
+    
     method move(nuevaPosicion){
         position = nuevaPosicion
     }
@@ -18,7 +25,6 @@ class Feind{ //enemigo aber auf Deutch
     }
     method encuentro(jugador){
         game.onTick(800, "perder vida", {jugador.perderVida(self.ataque())}) 
-        game.say(jugador,"me esta matando el coloquio de discreta")
         self.evaluador()
     }
 
@@ -72,7 +78,6 @@ class FeindSimple inherits Feind{
 }
 
 class FeindDispara inherits Feind{
-    var property direccion
     var property impactos = 1
     method image() {
         return "vanos.png"
@@ -88,6 +93,8 @@ class FeindDispara inherits Feind{
         }
     }
 }
+
+///////////////////////////////////////////////////////////////////
 
 object enemigos{
     var enemigo

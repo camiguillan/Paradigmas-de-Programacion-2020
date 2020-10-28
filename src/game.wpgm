@@ -7,7 +7,7 @@ import pantallaInicio.*
 
 
 program game{
-    game.title("Sobreviviendo")
+    game.title("Consiguiendo el titulo")
     game.height(20.5)
     game.width(24)
     game.boardGround("pasillos (3).png")

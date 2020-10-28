@@ -66,6 +66,8 @@ object nombreADefinir{
 
 }
 
+///////////////////////////////////////////////////////////////////
+
 object camiAElegir{
 	method position() = game.at(8,9)
 	method aLaIzq() = franAElegir

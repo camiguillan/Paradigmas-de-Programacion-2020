@@ -4,16 +4,19 @@ import movimientos.*
 import enemys.*
 import disparos.*
 import pantallaInicio.*
+import disparos.*
 
 class Player{
     var property position = game.at(11, 0)
     var direccion=izquierda
     var property vida=77
+    var vivo = true
+    
     method move(nuevaPosicion){
         position = nuevaPosicion
     }
     
-    method moveIzq(){ //PONER SELF
+    method moveIzq(){ 
     	if(self.enElFloor() && (self.enElTablero()  || self.position().x() == 22)){
                 self.move(self.position().left(1))
                 self.nuevaOrientacion(izquierda)
@@ -38,6 +41,7 @@ class Player{
     }
     method perderVida(cantidad){
         vida = (vida-cantidad).max(0)
+        self.sterben()
     }
     method direccion()=direccion
 
@@ -46,31 +50,58 @@ class Player{
     }
     method encuentra(enemigo,tiro){    }
     method recibeDisparo(disparo){
-    	 vida = (vida-10).max(0)
+    	 self.perderVida(10)
     	 tirosEnemigo.desaparecer(disparo)
+    }
+    method sterben(){
+    	if(vida == 0){
+    		vivo = false
+    		game.say(self,"F")
+    		game.schedule(9000, {game.stop()})
+    	}else{
+    		game.say(self,"me esta matando el coloquio de discreta")
+    	}
     }
 }
 
 object caro inherits Player{
 
+	method disparo() = "flor.png"
+	
     method image() {
-        return "caro-der.png"
+        if(vivo){
+        	return "caro-der.png"	
+        }else{
+        	return "caroBYN.png"
+        }
     }
 }
 
 object cami inherits Player{
-
+	method disparo() = "flor.png"
+	
     method image() {
-        return "cami-der.png"
+        if(vivo){
+        	return "cami-der.png"	
+        }else{
+        	return "camiBYN.png"
+        }
     }
 }
 
 object fran inherits Player{
-
+	method disparo() = "fuego.png"
+	
     method image() {
-        return "fran-der.png"
+        if(vivo){
+        	return "fran-der.png"	
+        }else{
+        	return "franBYN.png"
+        }
     }
 }
+
+///////////////////////////////////////////////////////////////////
 
 object izquierda{
     method mover(objeto){
@@ -92,6 +123,8 @@ object derecha{
     }
 }
 
+///////////////////////////////////////////////////////////////////
+
 object elevator{
     var property position = game.at(3, 0)
 
@@ -107,6 +140,20 @@ object elevator{
     method encuentro(player){}
     method encuentra(enemigo,tiro){    }
     method recibeDisparo(disparo){
+    }
+    
+    method paArriba(){
+    	if(personajeSeleccionado.personaje().enElevator() && not enemigos.listaEnemigos().any({enemy => enemy.enElElevator()})&& (self.enElTablero() || self.position().y() == 0)){
+                self.move(self.position().up(1))
+                personajeSeleccionado.personaje().move(personajeSeleccionado.personaje().position().up(1))
+            }
+    }
+    
+    method paAbajo(){
+    	if(personajeSeleccionado.personaje().enElevator() && not enemigos.listaEnemigos().any({enemy => enemy.enElElevator()}) && (self.enElTablero() || self.position().y() == 16)){
+                self.move(self.position().down(1))
+                personajeSeleccionado.personaje().move(personajeSeleccionado.personaje().position().down(1))
+            }
     }
 
 }

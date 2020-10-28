@@ -13,16 +13,10 @@ object config {
             personajeSeleccionado.personaje().moveDer()
         })
         keyboard.up().onPressDo({ 
-            if(personajeSeleccionado.personaje().enElevator() && not enemigos.listaEnemigos().any({enemy => enemy.enElElevator()})&& (elevator.enElTablero() || elevator.position().y() == 0)){
-                elevator.move(elevator.position().up(1))
-                personajeSeleccionado.personaje().move(personajeSeleccionado.personaje().position().up(1))
-            }
+            elevator.paArriba()
         })
         keyboard.down().onPressDo({ 
-            if(personajeSeleccionado.personaje().enElevator() && not enemigos.listaEnemigos().any({enemy => enemy.enElElevator()}) && (elevator.enElTablero() || elevator.position().y() == 16)){
-                elevator.move(elevator.position().down(1))
-                personajeSeleccionado.personaje().move(personajeSeleccionado.personaje().position().down(1))
-            }
+            elevator.paAbajo()
         })
         keyboard.space().onPressDo({ 
             tirosPlayer.disparar()
@@ -31,16 +25,15 @@ object config {
 
     method configurarColisiones() {
         game.onCollideDo(personajeSeleccionado.personaje(), {enemy => enemy.encuentro(personajeSeleccionado.personaje())})
-        //game.onCollideDo(tirito, {enemy => enemy.encuentra(tirito)})
     }
     method colisionDisparoPersonaje(){
         enemigos.listaEnemigos().forEach({enemy => game.onCollideDo(enemy, {tiro => tiro.encuentra(enemy,tiro)})})
-        //game.onCollideDo(tirito, {enemigo => tirito.encuentra(enemigo,tirito)})
     }
     method colisionDisparoEnemigo(tiro){
         game.onCollideDo(tiro,{jugador=>jugador.recibeDisparo(tiro)})
     }
 }
+
 object activador{
     method iniciar() {
         self.perseguirAPlayer()
@@ -69,7 +62,7 @@ object perseguirPlayer{
             self.movimientoIzq(enemy)
         }
     }
-    method movimientoDer(enemy){ //POLIMORFISMO
+    method movimientoDer(enemy){ 
         if (personajeSeleccionado.personaje().enElevator() && self.playerDistintoPiso(enemy) && enemy.position().x() == 9){
             self.irIzq(enemy)
         } else if (not self.playerDistintoPiso(enemy) || (self.playerDistintoPiso(enemy) && enemy.position().x()<8)){
@@ -91,9 +84,11 @@ object perseguirPlayer{
     }
     method irIzq(enemy){
             enemy.move(enemy.position().left(1))
+            enemy.nuevaDireccion(izquierda)
     }
     method irDer(enemy){
             enemy.move(enemy.position().right(1))
+            enemy.nuevaDireccion(derecha)
     }
     method playerDistintoPiso(enemy){
         return (personajeSeleccionado.personaje().position().y() != enemy.position().y())
