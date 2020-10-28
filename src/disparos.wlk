@@ -22,7 +22,7 @@ class Tirito{
 
 class TiroPlayer inherits Tirito{
 	method image() {
-        return "flor.png"
+        return "fuego.png"
     }
 	method encuentra(enemigo,tiro){
         game.removeVisual(tiro)
