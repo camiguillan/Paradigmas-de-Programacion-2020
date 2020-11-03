@@ -12,6 +12,8 @@ class Player{
     var property vida=77
     var vivo = true
     
+    method vivo() = vivo
+    
     method move(nuevaPosicion){
         position = nuevaPosicion
     }
@@ -105,20 +107,20 @@ object fran inherits Player{
 
 object izquierda{
     method mover(objeto){
-    	if(objeto.position().x()>0 || objeto.position().x()< 21){ //game.width
+    	if(objeto.position().x()>0 && objeto.position().x()< game.width()){ 
         	objeto.move(objeto.position().left(1))
         }else{
-        	game.removeVisual(objeto)
+        	objeto.remove()
         }
     }
 }
 
 object derecha{
     method mover(objeto){
-        if(objeto.position().x()>0 || objeto.position().x()<18){
+        if(objeto.position().x()>0 && objeto.position().x()<game.width()){
         	objeto.move(objeto.position().right(1))
         }else{
-        	game.removeVisual(objeto)
+        	objeto.remove()
         }
     }
 }

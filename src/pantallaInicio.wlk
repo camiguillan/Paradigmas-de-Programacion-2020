@@ -5,14 +5,16 @@ import enemys.*
 import disparos.*
 
 object configurarJuego{
-	method empezar(seleccionado){
-		game.addVisual(elevator)
-    	game.addVisual(seleccionado)
-    	enemigos.aparecerEnemigos()
-    	game.showAttributes(seleccionado)
-    	game.showAttributes(elevator)
-    	config.configurarColisiones()	
-	}
+    method empezar(seleccionado){
+        game.addVisual(elevator)
+        game.addVisual(seleccionado)
+        enemigos.aparecerEnemigos()
+        game.showAttributes(seleccionado)
+        game.showAttributes(elevator)
+        tirosPlayer.nuevaPosition()
+        tirosEnemigo.nuevaPosition()
+        config.configurarColisiones()
+    }
 }
 
 object teclas{
