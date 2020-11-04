@@ -4,12 +4,25 @@ import enemys.*
 import disparos.*
 import pantallaInicio.*
 import disparos.*
+import mascotas.*
 
 class Player{
     var property position = game.at(11, 0)
     var direccion=izquierda
-    var property vida=77
+    var property vida = 101
     var vivo = true
+    var property estado = simpleMortal
+    var muertesTot = 0    
+    
+    method direccion()=direccion
+        
+    method vidaCompleta(){
+    	vida = 101
+    }
+    
+    method cambiarEstado(nuevoE){
+    	estado = nuevoE
+    }
     
     method vivo() = vivo
     
@@ -34,26 +47,34 @@ class Player{
     method enElevator(){
          return self.position().x().between(11,12)
     }
+    
     method enElFloor(){
         return (position.y()%4 == 0)
     }
+    
     method enElTablero(){
         return (self.position().x().between(1,21))
     }
+    
     method perderVida(cantidad){
         vida = (vida-cantidad).max(0)
         self.sterben()
     }
-    method direccion()=direccion
+    
+    method encuentroEnemigo(cantidad){
+    	estado.encuentroEnemigo(cantidad,self)
+    }
+    
+    method recibeDisparo(disparo){
+    	 estado.recibeDisparo(disparo,self)
+    }
 
     method nuevaOrientacion(nuevaOrientacion){
         direccion=nuevaOrientacion
     }
-    method encuentra(enemigo,tiro){    }
-    method recibeDisparo(disparo){
-    	 self.perderVida(10)
-    	 tirosEnemigo.desaparecer(disparo)
-    }
+    
+    method encuentra(enemigo,tiro){}
+    
     method sterben(){
     	if(vida == 0){
     		vivo = false
@@ -63,9 +84,22 @@ class Player{
     		game.say(self,"me esta matando el coloquio de discreta")
     	}
     }
+    
+    method matoAUno(){
+    	muertesTot+=1
+    	if(muertesTot == 20)
+    		self.sieg()
+    }
+    
+    method sieg(){
+    	game.say(self, "GANE PERRI")
+    	game.schedule(5000, game.addVisual(""))
+    	game.schedule(20000, {game.stop()})
+    }
 }
 
 object caro inherits Player{
+	method mascota() = mora
 
 	method disparo() = "flor.png"
 	
@@ -80,6 +114,7 @@ object caro inherits Player{
 
 object cami inherits Player{
 	method disparo() = "flor.png"
+	method mascota() = unicornio
 	
     method image() {
         if(vivo){
@@ -92,6 +127,7 @@ object cami inherits Player{
 
 object fran inherits Player{
 	method disparo() = "fuego.png"
+	method mascota() = junior
 	
     method image() {
         if(vivo){
@@ -139,7 +175,7 @@ object elevator{
         return(self.position().y().between(1,15))
     }
     method encuentro(player){}
-    method encuentra(enemigo,tiro){    }
+    method encuentra(enemigo,tiro){}
     method recibeDisparo(disparo){
     }
     
@@ -156,5 +192,28 @@ object elevator{
                 personajeSeleccionado.personaje().move(personajeSeleccionado.personaje().position().down(1))
             }
     }
+}
 
+///////////////////////////////////////////////////////////////////////////////////
+
+class Estado{
+	method recibeDisparo(disparo,personaje){
+		tirosEnemigo.desaparecer(disparo)
+	}
+	method encuentroEnemigo(cantidad, personaje){}
+}
+
+object simpleMortal inherits Estado{
+	override method recibeDisparo(disparo,personaje){
+		super(disparo,personaje)
+		personaje.perderVida(10)
+	}
+	
+	override method encuentroEnemigo(cantidad, personaje){
+		personaje.perderVida(cantidad)
+	}
+}
+
+object semiDios inherits Estado{
+	
 }

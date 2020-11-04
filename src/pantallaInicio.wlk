@@ -3,6 +3,7 @@ import players.*
 import movimientos.*
 import enemys.*
 import disparos.*
+import mascotas.*
 
 object configurarJuego{
     method empezar(seleccionado){
@@ -14,6 +15,7 @@ object configurarJuego{
         tirosPlayer.nuevaPosition()
         tirosEnemigo.nuevaPosition()
         config.configurarColisiones()
+        seleccionado.mascota().aparece()
     }
 }
 
@@ -90,6 +92,7 @@ object caroAElegir{
 	method aLaIzq() = camiAElegir
 	method aLaDer() = franAElegir
 	method seleccionado() = caro
+	
 	method image(){
 		if(nombreADefinir.personajeAColor() == self){
 			return "caro-der.png"
@@ -104,6 +107,7 @@ object franAElegir{
 	method aLaIzq() = caroAElegir
 	method aLaDer() = camiAElegir
 	method seleccionado() = fran
+	
 	method image(){
 		if(nombreADefinir.personajeAColor() == self){
 			return "fran-der.png"
@@ -116,6 +120,7 @@ object franAElegir{
 object personajeSeleccionado{
 	var personaje
 	method personaje() = personaje
+	method mascota() = personaje.mascota()
 	
 	method cambiarP(nuevoP){
 		personaje = nuevoP
