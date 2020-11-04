@@ -21,7 +21,6 @@ class Feind{ //enemigo aber auf Deutsch
         position = nuevaPosicion
     }
 	
-	
 	//RESPONSABILIDAD DEL ELEVATOR
     method enElElevator(){
         return (self.position().x().between(10,13))
@@ -105,6 +104,16 @@ class FeindPapota inherits FeindDispara{
     override method ataque() = 15
 }
 
+class FeindFuerte inherits Feind{
+	override method lista() = enemigos.eFuerte()
+
+    method image() {
+        return ".png"
+    }
+    override method ataque() = 10
+    override method disparar(){}
+}
+
 ///////////////////////////////////////////////////////////////////
 
 object enemigos{
@@ -114,15 +123,25 @@ object enemigos{
     const property eSimple = []
     const property eDisparaSimple = []
     const property eDisparaPapota = []
+    const property eFuerte = []
     const puertas = [2,6,16,20]
 	var simplesAparecidos = 0
 	var disparaAparecidos = 0
 	var papotaAparecidos = 0
+	var fuertesAparecidos = 0
 
     method cantEnemigos() = listaEnemigos.size()
     method cantDeUnTipo(listaTipo) = listaTipo.size()
 
-    method aparecerEnemigos(){
+    method aparecerEnemigos(){  
+        game.onTick(5000,"nuevo enemigo simple",{
+            if(self.cantDeUnTipo(eSimple) < 4 && simplesAparecidos < 10){
+                enemigo=new FeindSimple(impactos = 0,position= game.at(self.generarPuerta(), 0))
+                self.nuevoEnemigo(eSimple)
+                simplesAparecidos += 1
+            }
+        })
+        
         game.onTick(8000,"nuevo enemigo que dispara",{
             if(self.cantDeUnTipo(eDisparaSimple) < 4 && disparaAparecidos < 6){
                 enemigo=new FeindDispara(impactos = 1,position= game.at(self.generarPuerta(), 4), direccion = derecha)
@@ -132,20 +151,20 @@ object enemigos{
             }
         }) 
 
-        game.onTick(5000,"nuevo enemigo simple",{
-            if(self.cantDeUnTipo(eSimple) < 4 && simplesAparecidos < 10){
-                enemigo=new FeindSimple(impactos = 0,position= game.at(self.generarPuerta(), 0))
-                self.nuevoEnemigo(eSimple)
-                simplesAparecidos += 1
-            }
-        })
-
         game.onTick(10000,"nuevo enemigo papota",{
             if(self.cantDeUnTipo(eDisparaPapota) < 2 && papotaAparecidos < 4){
                 enemigo = new FeindPapota(impactos = 5, position = game.at(self.generarPuerta(),8))
                 self.nuevoEnemigo(eDisparaPapota)
                 self.nuevoEnemigoDispara()
                 papotaAparecidos += 1
+            }
+        })
+        
+        game.onTick(8000,"nuevo enemigo fuerte",{
+            if(self.cantDeUnTipo(eFuerte) < 2 && fuertesAparecidos < 5){
+                enemigo=new FeindFuerte(impactos = 5,position= game.at(self.generarPuerta(), 12))
+                self.nuevoEnemigo(eFuerte)
+                fuertesAparecidos += 1
             }
         })
     }
