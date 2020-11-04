@@ -1,4 +1,3 @@
-
 import wollok.game.*
 import movimientos.*
 import enemys.*

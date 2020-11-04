@@ -5,7 +5,7 @@ import disparos.*
 import pantallaInicio.*
 
 object config {
-    method configurarTeclas() { //RESPOSABILIDAD DE CONDICIONES DEL TECLADO
+    method configurarTeclas() {
         keyboard.left().onPressDo({ 
            personajeSeleccionado.personaje().moveIzq()
         })

@@ -4,7 +4,7 @@ import movimientos.*
 import enemys.*
 import pantallaInicio.*
 
-class Tirito{ //fwmemefejfio
+class Tirito{ 
     var property direccion
     var position
     method position() = position

@@ -49,7 +49,7 @@ class Feind{ //enemigo aber auf Deutsch
                 if(enemigos.listaEnemigos().size()==1)
                     game.removeTickEvent("perseguir player")
                 enemigos.listaEnemigos().remove(enemigo)
-       
+       			enemigo.lista().remove(enemigo)
                 if(enemigos.listaEnemigosDisparo().contains(enemigo)){
                   		if(enemigos.listaEnemigosDisparo().size()==1)
                     		game.removeTickEvent("disparo enemigo")
@@ -72,9 +72,12 @@ class Feind{ //enemigo aber auf Deutsch
         	tirosEnemigo.disparar(self)
         }
     }
+    
+    method lista()
 }
 
 class FeindSimple inherits Feind{
+	override method lista() = enemigos.eSimple()
 
     method image() {
         return "pinieiro.png"
@@ -84,6 +87,7 @@ class FeindSimple inherits Feind{
 }
 
 class FeindDispara inherits Feind{
+	override method lista() = enemigos.eDisparaSimple()
 
     method image() {
         return "vanos.png"
@@ -97,8 +101,9 @@ class FeindDispara inherits Feind{
     }*/
 }
 
-class FeindPapota inherits FeindDispara{
-
+class FeindPapota inherits FeindDispara{	
+	override method lista() = enemigos.eDisparaPapota()
+	
     override method image() {
         return "enemyyy.png"
     }
@@ -114,52 +119,73 @@ class FeindPapota inherits FeindDispara{
 ///////////////////////////////////////////////////////////////////
 
 object enemigos{
-    var enemigo
     const property listaEnemigos=[]
     const property listaEnemigosDisparo=[]
+    const property eSimple = []
+    const property eDisparaSimple = []
+    const property eDisparaPapota = []
     const puertas = [2,6,16,20]
     var pos
 	
+	method cantEnemigos() = listaEnemigos.size()
+	method cantDeUnTipo(listaTipo) = listaTipo.size()
+	
     method aparecerEnemigos(){
         game.onTick(8000,"nuevo enemigo que dispara",{
-        	
-            enemigo=new FeindDispara(impactos = 1,position= game.at(self.generarPuerta(), 4), direccion = derecha)
-            self.nuevoEnemigo()                 												// a caro no le gusta esto, cami lo secunda
-            listaEnemigosDisparo.add(enemigo)                                                	// a caro no le  gusta esto
-            if (listaEnemigosDisparo.size() == 1)
-                activador.ontick() 
-            if (listaEnemigos.size()==1)		//se repite
-                activador.perseguirAPlayer()
+        	if(self.cantDeUnTipo(eDisparaSimple) <= 4){
+        		var enemigo=new FeindDispara(impactos = 1,position= game.at(self.generarPuerta(), 4), direccion = derecha)
+            	self.nuevoEnemigo(enemigo,eDisparaSimple)                 												
+            	self.nuevoEnemigoDispara(enemigo)                                	
+            	//self.activarPersecusion()	
+        	}
         }) 
         
         game.onTick(5000,"nuevo enemigo simple",{
-        	
-            enemigo=new FeindSimple(impactos = 0,position= game.at(self.generarPuerta(), 0))
-            self.nuevoEnemigo()
-            if (listaEnemigos.size()==1)		//se repite
-                activador.perseguirAPlayer()
+        	if(self.cantDeUnTipo(eSimple) <= 4){
+        		var enemigo=new FeindSimple(impactos = 0,position= game.at(self.generarPuerta(), 0))
+            	self.nuevoEnemigo(enemigo,eSimple)
+            	//self.activarPersecusion()	
+        	}
         })
         
         game.onTick(10000,"nuevo enemigo papota",{
-        	enemigo = new FeindPapota(impactos = 5, position = game.at(self.generarPuerta(),8))
-        	self.nuevoEnemigo()
-        	listaEnemigosDisparo.add(enemigo)                                                	// a caro no le  gusta esto
-            if (listaEnemigosDisparo.size() == 1)
-                activador.ontick() 
-            if (listaEnemigos.size()==1)		//se repite
-                activador.perseguirAPlayer()
+        	if(self.cantDeUnTipo(eDisparaPapota) <= 2){
+        		var enemigo = new FeindPapota(impactos = 5, position = game.at(self.generarPuerta(),8))
+        		self.nuevoEnemigo(enemigo,eDisparaPapota)
+        		self.nuevoEnemigoDispara(enemigo) 
+        		//listaEnemigosDisparo.add(enemigo)                                                	
+	            //self.activarDisparo()
+            	//self.activarPersecusion()
+        	}
         })
     }
-    method enemigo()= enemigo
+   // method enemigo()= enemigo
     
     method generarPuerta(){
     	pos = 0.randomUpTo(4)
         return puertas.get(pos)
     }
     
-    method nuevoEnemigo(){
+    method nuevoEnemigo(enemigo,listaTipo){
         game.addVisual(enemigo)
         listaEnemigos.add(enemigo)
+        listaTipo.add(enemigo)
+        self.activarPersecusion()
+    }
+    
+    method nuevoEnemigoDispara(enemigo){
+        listaEnemigosDisparo.add(enemigo)    
+        self.activarDisparo()
+    }
+    
+    method activarPersecusion(){
+    	if (listaEnemigos.size()==1)		
+            activador.perseguirAPlayer()
+    }
+    
+    method activarDisparo(){
+    	if (listaEnemigosDisparo.size() == 1)
+                activador.ontick() 
     }
 }
 
