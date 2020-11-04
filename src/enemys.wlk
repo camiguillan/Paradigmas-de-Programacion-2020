@@ -108,7 +108,7 @@ class FeindFuerte inherits Feind{
 	override method lista() = enemigos.eFuerte()
 
     method image() {
-        return ".png"
+        return "rober.png"
     }
     override method ataque() = 10
     override method disparar(){}

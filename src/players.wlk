@@ -104,8 +104,10 @@ object caro inherits Player{
 	method disparo() = "flor.png"
 	
     method image() {
-        if(vivo){
-        	return "caro-der.png"	
+        if(vivo and estado== simpleMortal){
+        	return "caro-der.png"
+        }else if (vivo and estado== semiDios){
+        	return	"caroEscudo.png"	
         }else{
         	return "caroBYN.png"
         }
@@ -117,8 +119,10 @@ object cami inherits Player{
 	method mascota() = unicornio
 	
     method image() {
-        if(vivo){
-        	return "cami-der.png"	
+        if(vivo and estado== simpleMortal){
+        	return "cami-der.png"
+        }else if (vivo and estado== semiDios){
+        	return	"camiEscudo.png"	
         }else{
         	return "camiBYN.png"
         }
@@ -130,13 +134,16 @@ object fran inherits Player{
 	method mascota() = junior
 	
     method image() {
-        if(vivo){
-        	return "fran-der.png"	
+        if(vivo and estado== simpleMortal){
+        	return "fran-der.png"
+        }else if (vivo and estado== semiDios){
+        	return	"franEscudo.png"
         }else{
         	return "franBYN.png"
         }
     }
 }
+
 
 ///////////////////////////////////////////////////////////////////
 
