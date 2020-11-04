@@ -32,9 +32,9 @@ object teclas{
 }
 
 object inicio{
-	method position() = game.at(0,2)
+	method position() = game.at(1,0)
 	method image(){
-		return "aulamagna.png"
+		return "cosa.png"
 	}
 }
 
