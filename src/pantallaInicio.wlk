@@ -32,9 +32,9 @@ object teclas{
 }
 
 object inicio{
-	method position() = game.at(1,0)
+	method position() = game.at(2,1)
 	method image(){
-		return "cosa.png"
+		return "cosa1.png"
 	}
 }
 
@@ -73,7 +73,7 @@ object nombreADefinir{
 ///////////////////////////////////////////////////////////////////
 
 object camiAElegir{
-	method position() = game.at(8,9)
+	method position() = game.at(7,9)
 	method aLaIzq() = franAElegir
 	method aLaDer() = caroAElegir
 	method seleccionado() = cami
@@ -88,7 +88,7 @@ object camiAElegir{
 }
 
 object caroAElegir{
-	method position() = game.at(12,9)
+	method position() = game.at(11,9)
 	method aLaIzq() = camiAElegir
 	method aLaDer() = franAElegir
 	method seleccionado() = caro
@@ -103,7 +103,7 @@ object caroAElegir{
 }
 
 object franAElegir{
-	method position() = game.at(16,9)
+	method position() = game.at(15,9)
 	method aLaIzq() = caroAElegir
 	method aLaDer() = camiAElegir
 	method seleccionado() = fran

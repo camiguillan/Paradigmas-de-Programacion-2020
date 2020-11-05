@@ -25,10 +25,12 @@ class Mascota{
 		movimiento = seguirDuenio
 		personaje.vidaCompleta()
 		personaje.cambiarEstado(semiDios)
+		personaje.hacerMortal(false)
 		game.schedule(20000,{
 			game.say(self,"suerte bro")
 			game.removeVisual(self)
 			personaje.cambiarEstado(simpleMortal)
+			personaje.hacerMortal(true)
 		})
 	}
 	

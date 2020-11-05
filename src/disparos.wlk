@@ -21,7 +21,7 @@ class Tirito{
 
 class TiroEnemigo inherits Tirito{
     method image() {
-        return "fran-der.png"
+        return "libro.png"
     }
 
     method encuentra(enemigo,tiro){}

@@ -12,9 +12,14 @@ class Player{
     var property vida = 101
     var vivo = true
     var property estado = simpleMortal
-    var muertesTot = 0    
+    var muertesTot = 0   
+    var esMortal = true 
     
-    method direccion()=direccion
+    method direccion() = direccion
+        
+    method hacerMortal(vari){
+    	esMortal = vari
+    }
         
     method vidaCompleta(){
     	vida = 101
@@ -31,30 +36,26 @@ class Player{
     }
     
     method moveIzq(){ 
-    	if(self.enElFloor() && (self.enElTablero()  || self.position().x() == 22)){
+    	if(self.enElFloor() && (tablero.enElTableroReducidoX(self)  || self.position().x() == 22)){
                 self.move(self.position().left(1))
                 self.nuevaOrientacion(izquierda)
             }
     }
     
     method moveDer(){
-    	if(self.enElFloor() && (self.enElTablero() || self.position().x() == 0)){
+    	if(self.enElFloor() && (tablero.enElTableroReducidoX(self) || self.position().x() == 0)){
                 self.move(self.position().right(1))
                 self.nuevaOrientacion(derecha)
             }
     }
     
-    method enElevator(){
-         return self.position().x().between(11,12)
-    }
-    
     method enElFloor(){
         return (position.y()%4 == 0)
     }
-    
+    /*
     method enElTablero(){
         return (self.position().x().between(1,21))
-    }
+    }*/
     
     method perderVida(cantidad){
         vida = (vida-cantidad).max(0)
@@ -75,7 +76,7 @@ class Player{
     
     method encuentra(enemigo,tiro){}
     
-    method sterben(){
+    method sterben(){ //morir
     	if(vida == 0){
     		vivo = false
     		game.say(self,"F")
@@ -87,14 +88,15 @@ class Player{
     
     method matoAUno(){
     	muertesTot+=1
-    	if(muertesTot == 20)
+    	if(muertesTot == 25)
     		self.sieg()
     }
     
-    method sieg(){
+    method sieg(){  //ganar
+    	//enemigos.eliminarTodos()
     	game.say(self, "GANE PERRI")
-    	game.schedule(5000, game.addVisual(""))
-    	game.schedule(20000, {game.stop()})
+    	//game.schedule(5000, game.addVisual("youWin.png"))
+    	game.schedule(10000, {game.stop()})
     }
 }
 
@@ -104,9 +106,9 @@ object caro inherits Player{
 	method disparo() = "flor.png"
 	
     method image() {
-        if(vivo and estado== simpleMortal){
+        if(vivo and esMortal){
         	return "caro-der.png"
-        }else if (vivo and estado== semiDios){
+        }else if (vivo and not esMortal){
         	return	"caroEscudo.png"	
         }else{
         	return "caroBYN.png"
@@ -115,13 +117,13 @@ object caro inherits Player{
 }
 
 object cami inherits Player{
-	method disparo() = "flor.png"
+	method disparo() = "rayolaser.png"
 	method mascota() = unicornio
 	
     method image() {
-        if(vivo and estado== simpleMortal){
+        if(vivo and esMortal){
         	return "cami-der.png"
-        }else if (vivo and estado== semiDios){
+        }else if (vivo and not esMortal){
         	return	"camiEscudo.png"	
         }else{
         	return "camiBYN.png"
@@ -134,9 +136,9 @@ object fran inherits Player{
 	method mascota() = junior
 	
     method image() {
-        if(vivo and estado== simpleMortal){
+        if(vivo and esMortal){
         	return "fran-der.png"
-        }else if (vivo and estado== semiDios){
+        }else if (vivo and not esMortal){
         	return	"franEscudo.png"
         }else{
         	return "franBYN.png"
@@ -149,7 +151,7 @@ object fran inherits Player{
 
 object izquierda{
     method mover(objeto){
-    	if(objeto.position().x()>0 && objeto.position().x()< game.width()){ 
+    	if(tablero.enElTableroX(objeto)){ 
         	objeto.move(objeto.position().left(1))
         }else{
         	objeto.remove()
@@ -159,7 +161,7 @@ object izquierda{
 
 object derecha{
     method mover(objeto){
-        if(objeto.position().x()>0 && objeto.position().x()<game.width()){
+        if(tablero.enElTableroX(objeto)){
         	objeto.move(objeto.position().right(1))
         }else{
         	objeto.remove()
@@ -178,23 +180,27 @@ object elevator{
     method move(nuevaPosicion) {
             position = nuevaPosicion
     }
-    method enElTablero(){
+    
+    /*method enElTablero(){
         return(self.position().y().between(1,15))
-    }
+    }*/
+    
     method encuentro(player){}
     method encuentra(enemigo,tiro){}
     method recibeDisparo(disparo){
     }
     
+    method enElevator(alguien) = alguien.position().x().between(10,13)
+    
     method paArriba(){
-    	if(personajeSeleccionado.personaje().enElevator() && not enemigos.listaEnemigos().any({enemy => enemy.enElElevator()})&& (self.enElTablero() || self.position().y() == 0)){
+    	if(self.enElevator(personajeSeleccionado.personaje()) && not enemigos.listaEnemigos().any({enemy => self.enElevator(enemy)})&& (tablero.enElTableroY(self) || self.position().y() == 0)){
                 self.move(self.position().up(1))
                 personajeSeleccionado.personaje().move(personajeSeleccionado.personaje().position().up(1))
             }
     }
     
     method paAbajo(){
-    	if(personajeSeleccionado.personaje().enElevator() && not enemigos.listaEnemigos().any({enemy => enemy.enElElevator()}) && (self.enElTablero() || self.position().y() == 16)){
+    	if(self.enElevator(personajeSeleccionado.personaje()) && not enemigos.listaEnemigos().any({enemy => self.enElevator(enemy)}) && (tablero.enElTableroY(self) || self.position().y() == 16)){
                 self.move(self.position().down(1))
                 personajeSeleccionado.personaje().move(personajeSeleccionado.personaje().position().down(1))
             }
@@ -202,6 +208,18 @@ object elevator{
 }
 
 ///////////////////////////////////////////////////////////////////////////////////
+
+object tablero{
+	
+	method enElTableroY(alguien) = alguien.position().y().between(1,15)
+	method enElTableroReducidoX(alguien) = alguien.position().x().between(1,21)
+	method enElTableroX(alguien) = alguien.position().x()>0 && alguien.position().x()< game.width()
+	method aLaIzqAscensor(alguien) = alguien.position().x()<8
+	method aLaDerAscensor(alguien) = alguien.position().x()>15
+	
+}
+
+//////////////////////////////////////////////////////////////////////////////////
 
 class Estado{
 	method recibeDisparo(disparo,personaje){

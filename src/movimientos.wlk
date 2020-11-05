@@ -63,16 +63,16 @@ object perseguirPlayer{
         }
     }
     method movimientoDer(enemy){ 
-        if (personajeSeleccionado.personaje().enElevator() && self.playerDistintoPiso(enemy) && enemy.position().x() == 9){
+        if (elevator.enElevator(personajeSeleccionado.personaje()) && self.playerDistintoPiso(enemy) && enemy.position().x() == 9){
             self.irIzq(enemy)
-        } else if (not self.playerDistintoPiso(enemy) || (self.playerDistintoPiso(enemy) && enemy.position().x()<8)){
+        } else if (not self.playerDistintoPiso(enemy) || (self.playerDistintoPiso(enemy) && tablero.aLaIzqAscensor(enemy))){
             self.irDer(enemy)
         }
     }
     method movimientoIzq(enemy){
-        if (personajeSeleccionado.personaje().enElevator() && self.playerDistintoPiso(enemy) && enemy.position().x() == 14){
+        if (elevator.enElevator(personajeSeleccionado.personaje()) && self.playerDistintoPiso(enemy) && enemy.position().x() == 14){
             self.irDer(enemy)}
-         else if (not self.playerDistintoPiso(enemy) || (self.playerDistintoPiso(enemy) && enemy.position().x()>15)){
+         else if (not self.playerDistintoPiso(enemy) || (self.playerDistintoPiso(enemy) && tablero.aLaDerAscensor(enemy))){
             self.irIzq(enemy)
         }
     }
