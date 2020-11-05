@@ -7,10 +7,13 @@ import pantallaInicio.*
 class Tirito{ 
     var property direccion
     var position
+   
     method position() = position
+    
     method move(nuevaPosicion){
         position = nuevaPosicion
     }
+    
     method encuentro(player){
     }
 
@@ -79,6 +82,7 @@ object tirosEnemigo{
     }
     
     method listaDeDisparos()=tirosEnemigo
+    
     method desaparecer(disparo){
         game.removeVisual(disparo)
         tirosEnemigo.remove(disparo)
