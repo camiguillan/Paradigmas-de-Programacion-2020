@@ -52,11 +52,7 @@ class Player{
     method enElFloor(){
         return (position.y()%4 == 0)
     }
-    /*
-    method enElTablero(){
-        return (self.position().x().between(1,21))
-    }*/
-    
+
     method perderVida(cantidad){
         vida = (vida-cantidad).max(0)
         self.sterben()
