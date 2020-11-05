@@ -9,13 +9,12 @@ import disparos.*
 class Mascota{
 	var movimiento = esperando
 	
-	
 	method position() = movimiento.position()
 	
 	method aparece(){
 		game.schedule(10000,{
 			game.addVisual(self)
-			game.say(self,"veni a salvarme hdp tengo hambre")
+			game.say(self,"veni a salvarme tengo hambre")
 		})
 	}
 	

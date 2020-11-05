@@ -8,6 +8,7 @@ class Feind{ //enemigo aber auf Deutsch
     var property position
     var direccion = izquierda
     var impactos
+    const player = personajeSeleccionado.personaje()
     
     method direccion() = direccion
     
@@ -27,7 +28,7 @@ class Feind{ //enemigo aber auf Deutsch
     }
 
     method evaluador(){
-        game.onTick(800,"misma pos", {if(self.position() != personajeSeleccionado.personaje().position()) self.sacartick()})
+        game.onTick(800,"misma pos", {if(self.position() != player.position()) self.sacartick()})
     }
 
     method sacartick(){
@@ -40,7 +41,7 @@ class Feind{ //enemigo aber auf Deutsch
     method encuentra(enemigo,tiro){
         if(enemigo.impactos() == 0){
             	game.removeVisual(enemigo)
-            	personajeSeleccionado.personaje().matoAUno()
+            	player.matoAUno()
 
                 if(enemigos.listaEnemigos().size()==1)
                     game.removeTickEvent("perseguir player")
@@ -56,15 +57,14 @@ class Feind{ //enemigo aber auf Deutsch
             enemigo.restarImp()
         }
     }
-    method recibeDisparo(disparo){
-    }
+    method recibeDisparo(disparo){}
 
     method restarImp(){
         impactos-=1
     }
     
     method disparar(){
-        if(self.position().y() == personajeSeleccionado.personaje().position().y()){
+        if(self.position().y() == player.position().y()){
         	tirosEnemigo.disparar(self)
         }
     }

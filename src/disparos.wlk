@@ -46,10 +46,10 @@ class TiroPlayer inherits Tirito{
 }
 
 ///////////////////////////////////////////////////////////////////
-
 object tirosPlayer{
     var tirito
     const property tiros=[]
+    
     method disparar(){
     	if(personajeSeleccionado.personaje().vivo()){
     		tirito=new TiroPlayer(direccion = personajeSeleccionado.personaje().direccion(), position=personajeSeleccionado.personaje().position()) 
@@ -70,12 +70,14 @@ object tirosPlayer{
 object tirosEnemigo{
     var tirito
     const property tirosEnemigo=[]
+    
     method disparar(enemigo){
         tirito=new TiroEnemigo(direccion = enemigo.direccion(), position=enemigo.position()) 
             game.addVisual(tirito)
             tirosEnemigo.add(tirito)
             config.colisionDisparoEnemigo(tirito)
     }
+    
     method listaDeDisparos()=tirosEnemigo
     method desaparecer(disparo){
         game.removeVisual(disparo)
